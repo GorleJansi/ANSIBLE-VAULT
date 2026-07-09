@@ -1,0 +1,10 @@
+---
+- name: Run command play
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Restart app only if output says restarted
+      ansible.builtin.shell: /opt/app/restart.sh
+      register: restart_result
+      changed_when: "'restarted' in restart_result.stdout"
