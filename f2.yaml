@@ -1,8 +1,15 @@
-- name: Run command
-  ansible.builtin.command: cat /tmp/test.txt
-  register: result
-  failed_when: result.rc != 0
+---
+- name: Run command play
+  hosts: localhost
+  connection: local
+  gather_facts: false
 
-- name: Print full register value
-  ansible.builtin.debug:
-    var: result
+  tasks:
+    - name: Run command
+      ansible.builtin.command: cat /tmp/test.txt
+      register: result
+      failed_when: result.rc != 0
+
+    - name: Print register value
+      ansible.builtin.debug:
+        var: result
