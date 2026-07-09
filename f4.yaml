@@ -1,0 +1,20 @@
+---
+- name: Run command play
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Deployment with cleanup
+      block:
+        - name: Deploy app
+          ansible.builtin.shell: /opt/app/deploy.sh
+
+      rescue:
+        - name: Rollback app
+          ansible.builtin.shell: /opt/app/rollback.sh
+
+      always:
+        - name: Remove temporary files
+          ansible.builtin.file:
+            path: /tmp/app.zip
+            state: absent
