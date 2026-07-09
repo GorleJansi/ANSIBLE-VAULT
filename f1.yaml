@@ -1,0 +1,10 @@
+- name: install package
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+     - name: install specific package
+       package:
+         name: "{{pkg}}"
+         state: present
+         
