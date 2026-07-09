@@ -7,9 +7,9 @@
   tasks:
     - name: Wait until application is healthy
       ansible.builtin.uri:
-        url: http://localhost:8080/health
+        url: http://localhost:80/health
         return_content: true
       register: app_health
       retries: 5
-      delay: 10
+      delay: 5
       until: app_health.status == 200
